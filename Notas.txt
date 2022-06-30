@@ -1,0 +1,36 @@
+Clase EMPRESA:
+    INSERTAR: okey
+    MODIFICAR: okey
+    ELIMINAR: okey
+    LISTAR: okey
+
+Clase VIAJE: //Agregar que no deje insertar viaje si no hay responsables/empresas disponibles
+    INSERTAR: okey
+    MODIFICAR: 
+        Destino: okey
+        CantMax: okey
+        Empresa:
+        Responsable:
+        Importe: okey
+        TipoAsiento: okey
+        Ida y vuelta: okey
+    ELIMINAR: okey
+    LISTAR: okey
+    LISTAR PASAJEROS: Falta implementar
+
+Clase PASAJERO:  //Agregar que no deje insertar si no hay viaje disponible
+    INSERTAR: okey
+    MODIFICAR: 
+        Nombre: okey
+        Apellido: okey
+        Telefono: okey
+        Viaje: okey
+    ELIMINAR: okey
+    LISTAR: okey
+
+Clase RESPONSABLE: Agregar validacion de que no deje borrar un Responsable que este a cargo de un viaje.
+    INSERTAR: okey
+    MODIFICAR: okey
+    LISTAR: okey
+    ELIMINAR: okey
+TEST: 
