@@ -4,10 +4,7 @@ include 'Responsable.php';
 include 'Pasajero.php';
 include 'Empresa.php';
 include 'BaseDeDatos.php';
-/**
- * Implementar dentro de la clase TestViajes una operación que permita ingresar, modificar
- *y eliminar la información de la empresa de viajes.
- */
+
 $base = new BaseDatos();
 
 /**

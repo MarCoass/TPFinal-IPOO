@@ -12,7 +12,7 @@ Clase VIAJE:
         CantMax: okey
             Cambiar a cantidad menor de los que hay: okey
         Empresa: okey
-        Responsable:
+        Responsable: okey
         Importe: okey
         TipoAsiento: okey
         Ida y vuelta: okey
