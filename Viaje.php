@@ -5,8 +5,8 @@ class Viaje
     private $idviaje;
     private $vdestino;
     private $vcantmaxpasajeros;
-    private $idempresa;
-    private $rnumeroempleado;
+    private $idempresa; //OBJETO EMPRESA
+    private $rnumeroempleado; // OBJETO RESPONSABLE
     private $vimporte;
     private $tipoAsiento;
     private $idayvuelta;
@@ -199,21 +199,23 @@ class Viaje
             if ($base->Ejecutar($consulta)) {
                 $array = array();
                 while ($row2 = $base->Registro()) {
-                    $idViaje = $row2['idviaje'];
-                    $vdestino = $row2['vdestino'];
-                    $vcantmaxpasajeros = $row2['vcantmaxpasajeros'];
-                    $empresa = new Empresa();
-                    $empresa->buscar($row2['idempresa']);
-                    $idempresa = $empresa;
-                    $responsable = new Responsable();
-                    $responsable->buscar($row2['rnumeroempleado']);
-                    $rnumeroempleado = $responsable;
-                    $vimporte = $row2['vimporte'];
-                    $tipoAsiento = $row2['tipoAsiento'];
-                    $idayvuelta = $row2['idayvuelta'];
-                    $viaje = new Viaje();
-                    $viaje->cargar2($idViaje, $vdestino, $vcantmaxpasajeros, $idempresa, $rnumeroempleado, $vimporte, $tipoAsiento, $idayvuelta);
-                    $array[] = $viaje;
+                    //$idViaje = $row2['idviaje'];
+                    //$vdestino = $row2['vdestino'];
+                   // $vcantmaxpasajeros = $row2['vcantmaxpasajeros'];
+                   // $empresa = new Empresa();
+                    //$empresa->buscar($row2['idempresa']);
+                    //$idempresa = $empresa;
+                    //$responsable = new Responsable();
+                    //$responsable->buscar($row2['rnumeroempleado']);
+                    //$rnumeroempleado = $responsable;
+                    ///$vimporte = $row2['vimporte'];
+                    //$tipoAsiento = $row2['tipoAsiento'];
+                    //$idayvuelta = $row2['idayvuelta'];
+                    //$viaje = new Viaje();
+                    //$viaje->cargar2($idViaje, $vdestino, $vcantmaxpasajeros, $idempresa, $rnumeroempleado, $vimporte, $tipoAsiento, $idayvuelta);
+                    $objViaje = new Viaje();
+                    $objViaje->buscar($row2['idviaje']);
+                    $array[] = $objViaje;
                 }
             } else {
                 Viaje::setMensaje($base->getError());

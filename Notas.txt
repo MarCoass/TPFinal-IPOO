@@ -12,7 +12,7 @@ Agregar que no se repita destino
     MODIFICAR: 
         Destino: okey
         CantMax: okey
-            Cambiar a cantidad menor de los que hay: 
+            Cambiar a cantidad menor de los que hay: okey
         Empresa:
         Responsable:
         Importe: okey
@@ -21,7 +21,7 @@ Agregar que no se repita destino
     ELIMINAR: okey
     LISTAR: okey
     LISTAR PASAJEROS: okey
-    Opciones para tablas vacias: okey menos listarPasajeros
+    Opciones para tablas vacias: okey
 
 
 Clase PASAJERO: 
@@ -43,4 +43,8 @@ Agregado validacion de que no deje borrar un Responsable que este a cargo de un 
     ELIMINAR: okey
 
 
-PHP Notice:  Undefined variable: rta in C:\Users\marti\OneDrive\Escritorio\Facultad\IPOO\TPFinal\Viaje.php on line 185
+CORRECCIONES DURANTE EXPOSICION: 
+Guarda los OBJETOS no los ID: si
+No se puede repetir el viaje: Insertar: si. Modificar: si
+Cambiar listar para usar buscar en vez de crear el objeto:  si
+Verificacion de borrar viaje con pasajeros: si

@@ -8,7 +8,7 @@ class Pasajero
     private $pnombre;
     private $papellido;
     private $ptelefono;
-    private $idviaje;
+    private $idviaje; //OBJETO VIAJE
     private $mensaje;
 
     public function __construct()
@@ -95,7 +95,7 @@ class Pasajero
             "\nNombre: " . $this->getPnombre() .
             "\nApellido: " . $this->getPapellido() .
             "\nTelefono: " . $this->getPtelefono() .
-            "\nID Viaje: " . $this->getIdviaje() . "\n";
+            "\nViaje: \n" . $this->getIdviaje() . "\n";
     }
 
     //funciones bd
@@ -135,14 +135,14 @@ class Pasajero
             if($base->Ejecutar($consulta)){
                 $array = array();
                 while($row2 = $base->Registro()){
-                    $rdocumento = $row2['pdocumento'];
-                    $pnombre = $row2['pnombre'];
-                    $papellido = $row2['papellido'];
-                    $ptelefono = $row2['ptelefono'];
-                    $idviaje = $row2['idviaje'];
-
+                    //$rdocumento = $row2['pdocumento'];
+                    //$pnombre = $row2['pnombre'];
+                    //$papellido = $row2['papellido'];
+                    //$ptelefono = $row2['ptelefono'];
+                    //$idviaje = $row2['idviaje'];
                     $pasajero = new Pasajero();
-                    $pasajero->cargar($rdocumento, $pnombre, $papellido, $ptelefono, $idviaje);
+                    //$pasajero->cargar($rdocumento, $pnombre, $papellido, $ptelefono, $idviaje);
+                    $pasajero->buscar($row2['pdocumento']);
                     $array[] = $pasajero;
                 }
             }else{

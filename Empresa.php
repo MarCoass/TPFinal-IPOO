@@ -109,11 +109,13 @@ class Empresa
             if($base->Ejecutar($consulta)){
                 $array = array();
                 while($row2 = $base->Registro()){
-                    $idempresa = $row2['idempresa'];
-                    $enombre = $row2['enombre'];
-                    $edireccion = $row2['edireccion'];
+                    //$idempresa = $row2['idempresa'];
+                    //$enombre = $row2['enombre'];
+                    //$edireccion = $row2['edireccion'];
+                    //$empresa = new Empresa();
+                    //$empresa->cargar2($idempresa, $enombre, $edireccion);
                     $empresa = new Empresa();
-                    $empresa->cargar2($idempresa, $enombre, $edireccion);
+                    $empresa->buscar($row2['idempresa']);
                     $array[] = $empresa;
                 }
             }else{

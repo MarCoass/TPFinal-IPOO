@@ -43,7 +43,7 @@ function limpiarBD($base)
  */
 function listarArray($array)
 {
-    $texto = "";
+    $texto = "\n-------------------\n";
     foreach ($array as $item) {
         $texto = $texto . $item->__toString() . "\n";
     }
@@ -87,7 +87,7 @@ function modificarEmpresa($empresa)
 }
 
 /**
- * Funcion que re
+ * Funcion que recibe una empresa y la elimina de la base de datos
  */
 function eliminarEmpresa($empresa)
 {
@@ -99,6 +99,10 @@ function eliminarEmpresa($empresa)
     }
 }
 
+/**
+ * Funcion que retorna true o false segun si hay empresas cargadas en la bd
+ * @return Array
+ * */
 function existenEmpresas()
 {
     $empresa = new Empresa();
@@ -107,6 +111,11 @@ function existenEmpresas()
     return $hayEmpresasCargadas;
 }
 
+/**
+ * Funcion que retorna los viajes pertenecientes a la empresa que recibe por parametro
+ * @param Empresa $empresa
+ * @return Array
+ */
 function viajesDeEmpresa($empresa)
 {
     $viaje = new Viaje();
@@ -115,6 +124,10 @@ function viajesDeEmpresa($empresa)
     return $viajesDeEmpresa;
 }
 
+/**
+ * Funcion que elimina todos los viajes de una empresa y sus pasajeros.
+ * @param Empresa $empresa
+ */
 function eliminarViajesEnEmpresa($empresa)
 {
     $viaje = new Viaje();
@@ -126,11 +139,14 @@ function eliminarViajesEnEmpresa($empresa)
     }
 }
 
+/**
+ * Funcion que muestra las opciones disponibles para la tabla empresa
+ */
 function opcionesEmpresa()
 {
     do {
         $empresa = new Empresa();
-        echo "---------------------------OPCIONES EMPRESA----------------------------
+        echo "\n---------------------------OPCIONES EMPRESA----------------------------
             1) Insertar empresa.
             2) Modificar empresa.
             3) Eliminar empresa.
@@ -207,10 +223,14 @@ function opcionesEmpresa()
     } while ($opcion != 0);
 }
 
+/**
+ * Funcion que recibe una empresa y muestra las opciones para modificarla
+ * @param Empresa $empresa
+ */
 function opcionesModificarEmpresa($empresa)
 {
     do {
-        echo "------------------MODIFICACIONES EMPRESA--------------------
+        echo "\n------------------MODIFICACIONES EMPRESA--------------------
         1) Nombre.
         2) Direccion. 
         0) Volver atras. \n";
@@ -237,6 +257,11 @@ function opcionesModificarEmpresa($empresa)
 }
 //------------------------------------------VIAJES------------------------------------------//
 
+/**
+ * Funcion que pide los datos para crear un viaje, verifica que sean validos 
+ * (que no exista otro al mismo destino, que existan la empresa y el responsable) y lo inserta a la bd
+ * @return Viaje
+ */
 function insertarViaje()
 {
     $viaje = new Viaje();
@@ -285,6 +310,9 @@ function insertarViaje()
     return $viaje;
 }
 
+/**
+ * Funcion que recibe un viaje y lo elimina de la bd
+ */
 function eliminarViaje($viaje)
 {
     if ($viaje->eliminar()) {
@@ -295,6 +323,9 @@ function eliminarViaje($viaje)
     };
 }
 
+/**
+ * Funcion que recibe un viajey lo modifica en la bd
+ */
 function modificarViaje($viaje)
 {
     if ($viaje->modificar()) {
@@ -305,6 +336,10 @@ function modificarViaje($viaje)
     };
 }
 
+/**
+ * Funcion que recibe un viaje y elimina todos sus pasajeros
+ * @param Viaje $viaje
+ */
 function eliminarPasajerosEnViaje($viaje)
 {
     $pasajeros = listadoPasajerosEnViaje($viaje->getIdviaje());
@@ -313,6 +348,11 @@ function eliminarPasajerosEnViaje($viaje)
     }
 }
 
+/**
+ * Funcion que recibe un idViaje y retorna la lista de los pasajeros de este viaje
+ * @param int $idViaje
+ * @return Array
+ */
 function listadoPasajerosEnViaje($idViaje)
 {
     $pasajero = new Pasajero();
@@ -321,6 +361,11 @@ function listadoPasajerosEnViaje($idViaje)
     return $pasajeros;
 }
 
+/**
+ * Funcion que retorna un boolean segun si quedan asientos disponibles en el viaje que se recibe por parametro
+ * @param int $idViaje
+ * @return boolean
+ */
 function hayLugar($idViaje)
 {
     $viaje = new Viaje();
@@ -328,6 +373,10 @@ function hayLugar($idViaje)
     return sizeof(listadoPasajerosEnViaje($idViaje)) < $viaje->getVcantmaxpasajeros();
 }
 
+/**
+ * Funcion que retorna un boolean segun si hay viajes cargados en la bd
+ * @return boolean
+ */
 function existenViajes()
 {
     $viaje = new Viaje();
@@ -336,6 +385,11 @@ function existenViajes()
     return $hayViajesCargados;
 }
 
+/**
+ * Funcion que dado un destino retorna un boolean segun si ya existe otro 
+ * @param String $destino
+ * @return boolean
+ */
 function existeMismoDestino($destino)
 {
     $viaje = new Viaje();
@@ -352,11 +406,14 @@ function existeMismoDestino($destino)
     return $existe;
 }
 
+/**
+ * Funcion que muestra las opciones para la tabla viaje
+ */
 function opcionesViaje()
 {
     do {
         $viaje = new Viaje();
-        echo "---------------------------OPCIONES VIAJES----------------------------
+        echo "\n---------------------------OPCIONES VIAJES----------------------------
             1) Insertar viaje.
             2) Modificar viaje.
             3) Eliminar viaje.
@@ -444,11 +501,15 @@ function opcionesViaje()
     } while ($opcion != 0);
 }
 
+/**
+ * Funcion que recibe un viaje y muestra las opciones para modificarlo
+ * @param Viaje $viaje
+ */
 function opcionesModificarViaje($viaje)
 {
     do {
 
-        echo "------------------MODIFICACIONES VIAJES--------------------
+        echo "\n------------------MODIFICACIONES VIAJES--------------------
         1) Destino.
         2) Cantidad maxima de pasajeros. 
         3) Empresa.
@@ -463,8 +524,13 @@ function opcionesModificarViaje($viaje)
             case 1:
                 echo "Ingrese el nuevo destino: ";
                 $nuevo = trim(fgets(STDIN));
-                $viaje->setVdestino($nuevo);
-                modificarViaje($viaje);
+                if (!existeMismoDestino($nuevo)) {
+                    $viaje->setVdestino($nuevo);
+                    modificarViaje($viaje);
+                } else {
+                    echo "Ya existe un viaje a {$nuevo}\n";
+                }
+
                 break;
             case 2:
                 echo "Ingrese la nueva cantidad de pasajeros: ";
@@ -481,7 +547,7 @@ function opcionesModificarViaje($viaje)
                 $nuevo = trim(fgets(STDIN));
                 $nuevaEmpresa = new Empresa();
                 if ($nuevaEmpresa->buscar($nuevo)) {
-                    $viaje->setIdempresa($nuevaEmpresa);
+                    $viaje->setObjempresa($nuevaEmpresa);
                     modificarViaje($viaje);
                 } else {
                     echo "No se encontro una empresa con el ID buscado.\n";
@@ -526,6 +592,9 @@ function opcionesModificarViaje($viaje)
 
 //------------------------------------------PASAJEROS------------------------------------------//
 
+/**
+ * Funcion que pide los datos para insertar un pasajero y verifica que sean datos validos (el viaje solicitado existe, el documento no se repite)
+ */
 function insertarPasajero()
 {
     $pasajero = new Pasajero();
@@ -569,6 +638,10 @@ function insertarPasajero()
     }
 }
 
+/**
+ * Funcion que recibe un pasajero y lo modifica en la bd
+ * @param Pasajero $pasajero
+ */
 function modificarPasajero($pasajero)
 {
     if ($pasajero->modificar()) {
@@ -579,6 +652,10 @@ function modificarPasajero($pasajero)
     }
 }
 
+/**
+ * Funcion que recibe un pasajero y lo elimina en la bd
+ * @param Pasajero $pasajero
+ */
 function eliminarPasajero($pasajero)
 {
     if ($pasajero->eliminar()) {
@@ -589,6 +666,10 @@ function eliminarPasajero($pasajero)
     }
 }
 
+/**
+ * Funcion que retornta un boolean segun si existen pasajeros o no
+ * @return boolean
+ */
 function existenPasajeros()
 {
     $pasajero = new Pasajero();
@@ -597,6 +678,9 @@ function existenPasajeros()
     return $hayPasajerosCargados;
 }
 
+/**
+ * Funcion que muestra las opciones para la tabla pasajeros
+ */
 function opcionesPasajeros()
 {
     do {
@@ -659,6 +743,10 @@ function opcionesPasajeros()
     } while ($opcion != 0);
 }
 
+/**
+ * Funcion que recibe un dni de un pasajero y muestra las opciones para modificarlo
+ * @return int $documento
+ */
 function opcionesModificarPasajero($documento)
 {
     $pasajero = new Pasajero();
@@ -715,7 +803,10 @@ function opcionesModificarPasajero($documento)
 }
 
 //------------------------------------------RESPONSABLE------------------------------------------//
-//AGREGAR: que no deje eliminar un responsable si esta en un viaje.
+
+/**
+ * Funcion que pide los datos de un responsable y lo inserta en la bd
+ */
 function insertarResponsable()
 {
     $resposable = new Responsable();
@@ -735,6 +826,9 @@ function insertarResponsable()
     }
 }
 
+/**
+ * Funcion que recibe un responsable y lo modifica en la bd
+ */
 function modificarResponsable($resposable)
 {
     if ($resposable->modificar()) {
@@ -744,6 +838,10 @@ function modificarResponsable($resposable)
     }
 }
 
+/**
+ * Funcion que retorna un boolean segun si hay responsables cargados o no
+ * @return boolean
+ */
 function existenResponsables()
 {
     $responsable = new Responsable();
@@ -752,6 +850,9 @@ function existenResponsables()
     return $hayResponsablesCargados;
 }
 
+/**
+ * Funcion que muestra las opciones para la tabla responsable
+ */
 function opcionesResponsable()
 {
 
@@ -825,6 +926,10 @@ function opcionesResponsable()
     } while ($opcion != 0);
 }
 
+/**
+ * Funcion que recibe el num empleado de un responsable y muestra las opciones para modificar dicho responsable
+ * @param int $numEmpleado
+ */
 function opcionesModificarResponsable($numEmpleado)
 {
     $resposable = new Responsable();
@@ -865,6 +970,7 @@ function opcionesModificarResponsable($numEmpleado)
 }
 
 //------------------------------------------PROGRAMA PRINCIPAL------------------------------------------//
+
 do {
 
     echo "---------------------------OPCIONES GENERALES----------------------------

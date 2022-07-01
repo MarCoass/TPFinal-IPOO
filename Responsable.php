@@ -4,7 +4,7 @@ class Responsable{
     private $rnumeroEmpleado;
     private $rnumerolicencia;
     private $rnombre;
-    private $rapellido;
+    private $rapellido; 
     private $mensaje;
 
     public function __construct()
@@ -117,13 +117,13 @@ class Responsable{
             if($base->Ejecutar($consulta)){
                 $array = array();
                 while($row2 = $base->Registro()){
-                    $rnumeroEmpleado = $row2['rnumeroempleado'];
-                    $rnumerolicencia = $row2['rnumerolicencia'];
-                    $rnombre = $row2['rnombre'];
-                    $rapellido = $row2['rapellido'];
-
+                    //$rnumeroEmpleado = $row2['rnumeroempleado'];
+                    //$rnumerolicencia = $row2['rnumerolicencia'];
+                    //$rnombre = $row2['rnombre'];
+                    //$rapellido = $row2['rapellido'];
                     $responsable = new Responsable();
-                    $responsable->cargar2($rnumeroEmpleado, $rnumerolicencia, $rnombre, $rapellido);
+                    //$responsable->cargar2($rnumeroEmpleado, $rnumerolicencia, $rnombre, $rapellido);
+                    $responsable->buscar($row2['rnumeroempleado']);
                     $array[] = $responsable;
                 }
             }else{
