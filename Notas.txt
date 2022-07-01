@@ -4,7 +4,9 @@ Clase EMPRESA:
     ELIMINAR: okey
     LISTAR: okey
 
-Clase VIAJE: //Agregar que no deje insertar viaje si no hay responsables/empresas disponibles
+Clase VIAJE: 
+Agregar que no deje insertar viaje si no hay responsables/empresas disponibles
+Agregar que no se repita destino
     INSERTAR: okey
     MODIFICAR: 
         Destino: okey
@@ -16,9 +18,9 @@ Clase VIAJE: //Agregar que no deje insertar viaje si no hay responsables/empresa
         Ida y vuelta: okey
     ELIMINAR: okey
     LISTAR: okey
-    LISTAR PASAJEROS: Falta implementar
+    LISTAR PASAJEROS: okey
 
-Clase PASAJERO:  //Agregar que no deje insertar si no hay viaje disponible
+Clase PASAJERO: //Agregar que no deje insertar si no hay viaje disponible
     INSERTAR: okey
     MODIFICAR: 
         Nombre: okey
@@ -33,4 +35,3 @@ Clase RESPONSABLE: Agregar validacion de que no deje borrar un Responsable que e
     MODIFICAR: okey
     LISTAR: okey
     ELIMINAR: okey
-TEST: 

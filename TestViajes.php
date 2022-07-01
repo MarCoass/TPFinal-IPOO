@@ -185,7 +185,6 @@ function opcionesModificarEmpresa($empresa)
 }
 //------------------------------------------VIAJES------------------------------------------//
 
-//PASA OBJETO
 function insertarViaje()
 {
     $viaje = new Viaje();
@@ -321,7 +320,14 @@ function opcionesViaje()
                 listarArray($viajes);
                 break;
             case 5:
-                //Listar pasajeros en viaje
+                echo "Ingrese el ID del viaje que desea ver los pasajeros: ";
+                $idViaje = trim(fgets(STDIN));
+                if($viaje->buscar($idViaje)){
+                    $pasajeros = listadoPasajerosEnViaje($idViaje);
+                    listarArray($pasajeros);
+                } else {
+                    echo "No se encontro el viaje con el ID solicitado.\n";
+                }
                 break;
             case 0:
                 break;
