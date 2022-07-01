@@ -143,10 +143,11 @@ class Viaje
     //toString
     public function __toString()
     {
-        return "ID: " . $this->getIdviaje() .
+        return "----------------------------------
+            ID: " . $this->getIdviaje() .
             "\nDestino: " . $this->getVdestino() .
             "\nCantidad maxima de pasajeros: " . $this->getVcantMaxPasajeros() .
-            "\nID Empresa: " . $this->getObjempresa() .
+            "\nEmpresa: \n" . $this->getObjempresa() .
             "\nEmpleado Responsable: \n" . $this->getRnumeroempleado() .
             "\nImporte: $" . $this->getVimporte() .
             "\nTipo de asiento: " . $this->getTipoAsiento() .

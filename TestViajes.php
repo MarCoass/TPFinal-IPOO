@@ -37,6 +37,10 @@ function limpiarBD($base)
     }
 }
 
+/**
+ * Funcion que recibe un array y la muestra por pantalla.
+ * @param Array $array
+ */
 function listarArray($array)
 {
     $texto = "";
@@ -47,6 +51,10 @@ function listarArray($array)
 }
 
 //------------------------------------------EMPRESA------------------------------------------//
+
+/**
+ * Funcion que pide los datos para crear y cargar una empresa
+ */
 function insertarEmpresa()
 {
     $empresa = new Empresa();
@@ -92,6 +100,14 @@ function existenEmpresas()
     return $hayEmpresasCargadas;
 }
 
+function viajesDeEmpresa($empresa)
+{
+    $viaje = new Viaje();
+    $condicion = "idempresa = '{$empresa->getIdempresa()}'";
+    $viajesDeEmpresa = $viaje->listar($condicion);
+    return $viajesDeEmpresa;
+}
+
 function eliminarViajesEnEmpresa($empresa)
 {
     $viaje = new Viaje();
@@ -106,12 +122,15 @@ function eliminarViajesEnEmpresa($empresa)
 function opcionesEmpresa()
 {
     do {
+        $empresa = new Empresa();
         echo "---------------------------OPCIONES EMPRESA----------------------------
-            1)Insertar empresa.
-            2)Modificar empresa.
-            3)Eliminar empresa.
-            4)Listar empresa.
-            0)Salir.\n";
+            1) Insertar empresa.
+            2) Modificar empresa.
+            3) Eliminar empresa.
+            4) Listar empresas.
+            5) Listar viajes de una empresa.
+            0) Volver atras.
+            Opcion: ";
         $opcion = trim(fgets(STDIN));
         switch ($opcion) {
             case 1:
@@ -121,7 +140,6 @@ function opcionesEmpresa()
                 if (existenEmpresas()) {
                     echo "Ingrese el ID de la empresa a modificar: ";
                     $id = trim(fgets(STDIN));
-                    $empresa = new Empresa();
                     if ($empresa->buscar($id)) {
                         opcionesModificarEmpresa($empresa);
                     } else {
@@ -135,7 +153,6 @@ function opcionesEmpresa()
                 if (existenEmpresas()) {
                     echo "Ingrese el ID de la empresa a eliminar: ";
                     $id = trim(fgets(STDIN));
-                    $empresa = new Empresa();
                     if ($empresa->buscar($id)) {
                         $viajesDeEmpresa = new Viaje();
                         $condicion = 'idempresa = ' . $id;
@@ -158,12 +175,21 @@ function opcionesEmpresa()
                 }
                 break;
             case 4:
-                $empresa = new Empresa();
                 $empresas = $empresa->listar();
                 if (sizeof($empresas) > 0) {
                     listarArray($empresas);
                 } else {
                     echo "No hay empresas cargadas.\n";
+                }
+                break;
+            case 5:
+                echo "Ingrese el ID de las empresa de la que desea ver sus viajes: ";
+                $idEmpresa = trim(fgets(STDIN));
+                if ($empresa->buscar($idEmpresa)) {
+                    $viajesDeEmpresa = viajesDeEmpresa($empresa);
+                    listarArray($viajesDeEmpresa);
+                } else {
+                    echo "No existe una empresa con el ID solicitado.\n";
                 }
                 break;
             case 0:
@@ -207,9 +233,16 @@ function opcionesModificarEmpresa($empresa)
 function insertarViaje()
 {
     $viaje = new Viaje();
-    echo "Ingrese los datos del viaje: \n ";
-    echo "Destino: ";
-    $destino = trim(fgets(STDIN));
+    echo "Ingrese los datos del viaje: \n";
+    do {
+        echo "Destino: ";
+        $destino = trim(fgets(STDIN));
+        $existeDestino = existeMismoDestino($destino);
+        if ($existeDestino) {
+            echo "Ya existe un viaje a " . $destino . ", ingrese otro destino.\n";
+        }
+    } while ($existeDestino);
+
     echo "Cantidad maxima de pasajeros: ";
     $cantMax = trim(fgets(STDIN));
     do {
@@ -296,6 +329,22 @@ function existenViajes()
     return $hayViajesCargados;
 }
 
+function existeMismoDestino($destino)
+{
+    $viaje = new Viaje();
+    $condicion = "vdestino = '{$destino}'";
+    $viajesAlDestino = $viaje->listar($condicion);
+    $existe = false;
+    $i = 0;
+    while ($i < sizeof($viajesAlDestino) && !$existe) {
+        if ($viajesAlDestino[$i]) {
+            $existe = true;
+        }
+        $i++;
+    }
+    return $existe;
+}
+
 function opcionesViaje()
 {
     do {
@@ -306,7 +355,8 @@ function opcionesViaje()
             3) Eliminar viaje.
             4) Listar viajes.
             5) Listar Pasajeros de viaje.
-            0) Salir. \n";
+            0) Volver atras. 
+            Opcion: ";
         $opcion = trim(fgets(STDIN));
         switch ($opcion) {
             case 1:
@@ -315,7 +365,6 @@ function opcionesViaje()
                 } else {
                     echo "Opcion no disponible. Inserte una empresa y/o un responsable para continuar.\n";
                 }
-
                 break;
             case 2:
                 if (existenViajes()) {
@@ -361,7 +410,6 @@ function opcionesViaje()
                 } else {
                     echo "No hay viajes cargados.\n";
                 }
-
                 break;
             case 5:
                 if (existenViajes()) {
@@ -380,7 +428,6 @@ function opcionesViaje()
                 } else {
                     echo "Opcion no disponible. Inserte un viaje para continuar.\n";
                 }
-
                 break;
             case 0:
                 break;
@@ -402,7 +449,8 @@ function opcionesModificarViaje($viaje)
         5) Importe. 
         6) Tipo de asiento.
         7) Ida y vuelta.
-        0) Volver atras.\n";
+        0) Volver atras.
+        Opcion: ";
         $opcion = trim(fgets(STDIN));
 
         switch ($opcion) {
@@ -552,7 +600,8 @@ function opcionesPasajeros()
             2) Modificar pasajero.
             3) Eliminar pasajero.
             4) Listar pasajeros.
-            0) Salir. \n";
+            0) Salir. 
+            Opcion: ";
         $opcion = trim(fgets(STDIN));
         switch ($opcion) {
             case 1:
@@ -561,7 +610,6 @@ function opcionesPasajeros()
                 } else {
                     echo "Opcion no disponible. Inserte un viaje para continuar.\n";
                 }
-
                 break;
             case 2:
                 if (existenPasajeros()) {
@@ -575,7 +623,6 @@ function opcionesPasajeros()
                 } else {
                     echo "Opcion no disponible. Inserte un pasajero para continuar.\n";
                 }
-
                 break;
             case 3:
                 if (existenPasajeros()) {
@@ -589,7 +636,6 @@ function opcionesPasajeros()
                 } else {
                     echo "Opcion no disponible. Inserte un pasajero para continuar.\n";
                 }
-
                 break;
             case 4:
                 if (existenPasajeros()) {
@@ -598,7 +644,6 @@ function opcionesPasajeros()
                 } else {
                     echo "No hay pasajeros cargados.\n";
                 }
-
                 break;
             case 0:
                 break;
@@ -618,7 +663,8 @@ function opcionesModificarPasajero($documento)
             2) Apellido.
             3) Telefono.
             4) Viaje. 
-            0) Volver atras.\n";
+            0) Volver atras.
+            Opcion: ";
         $opcion = trim(fgets(STDIN));
         switch ($opcion) {
             case 1:
@@ -710,7 +756,8 @@ function opcionesResponsable()
         2) Modificar responsable. 
         3) Eliminar responsable. 
         4) Listar responssables. 
-        0) Volver atras\n";
+        0) Volver atras.
+        Opcion: ";
         $opcion = trim(fgets(STDIN));
         switch ($opcion) {
             case 1:
@@ -781,7 +828,8 @@ function opcionesModificarResponsable($numEmpleado)
         1) Numero licencia.
         2) Nombre.
         3) Apellido.
-        0) Volver atras. \n";
+        0) Volver atras.
+        Opcion: ";
         $opcion = trim(fgets(STDIN));
         switch ($opcion) {
             case 1:
@@ -814,12 +862,13 @@ function opcionesModificarResponsable($numEmpleado)
 do {
 
     echo "---------------------------OPCIONES GENERALES----------------------------
-        1)Acceder a tabla Empresas.
-        2)Acceder a tabla Viajes.
-        3)Acceder a tabla Pasajeros.
-        4)Acceder a tabla Responsables.
-        5)Vaciar Base de Datos.
-        0)Salir.\n";
+        1) Acceder a tabla Empresas.
+        2) Acceder a tabla Viajes.
+        3) Acceder a tabla Pasajeros.
+        4) Acceder a tabla Responsables.
+        5) Vaciar Base de Datos.
+        0) Salir.
+        Opcion: ";
     $opcion = trim(fgets(STDIN));
     switch ($opcion) {
         case 1:
