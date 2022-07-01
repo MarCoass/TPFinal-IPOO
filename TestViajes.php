@@ -72,6 +72,10 @@ function insertarEmpresa()
     return $empresa;
 }
 
+/**
+ * Funcion que recibe una empresa y la modifica en la base de datos
+ * @param Empresa $empresa
+ */
 function modificarEmpresa($empresa)
 {
     if ($empresa->modificar()) {
@@ -82,6 +86,9 @@ function modificarEmpresa($empresa)
     }
 }
 
+/**
+ * Funcion que re
+ */
 function eliminarEmpresa($empresa)
 {
     if ($empresa->eliminar()) {
@@ -212,13 +219,13 @@ function opcionesModificarEmpresa($empresa)
             case 1:
                 echo "Ingrese el nuevo nombre: ";
                 $nuevo = trim(fgets(STDIN));
-                $empresa->cargar($nuevo, $empresa->getEdireccion());
+                $empresa->setEnombre($nuevo);
                 modificarEmpresa($empresa);
                 break;
             case 2:
                 echo "Ingrese la nueva direccion: ";
                 $nuevo = trim(fgets(STDIN));
-                $empresa->cargar($empresa->getEnombre(), $nuevo);
+                $empresa->setEdireccion($nuevo);
                 modificarEmpresa($empresa);
                 break;
             case 0:
@@ -452,12 +459,11 @@ function opcionesModificarViaje($viaje)
         0) Volver atras.
         Opcion: ";
         $opcion = trim(fgets(STDIN));
-
         switch ($opcion) {
             case 1:
                 echo "Ingrese el nuevo destino: ";
                 $nuevo = trim(fgets(STDIN));
-                $viaje->cargar($nuevo, $viaje->getVcantmaxpasajeros(), $viaje->getObjempresa(), $viaje->getRnumeroempleado(), $viaje->getVimporte(), $viaje->getTipoasiento(), $viaje->getIdayvuelta());
+                $viaje->setVdestino($nuevo);
                 modificarViaje($viaje);
                 break;
             case 2:
@@ -466,7 +472,7 @@ function opcionesModificarViaje($viaje)
                 if (sizeof(listadoPasajerosEnViaje($viaje->getIdViaje())) > $nuevo) {
                     echo "El viaje supera la cantidad de pasajeros, no se realizo la modificacion.\n";
                 } else {
-                    $viaje->cargar($viaje->getVdestino(), $nuevo, $viaje->getObjempresa(), $viaje->getRnumeroempleado(), $viaje->getVimporte(), $viaje->getTipoasiento(), $viaje->getIdayvuelta());
+                    $viaje->setVcantmaxpasajeros($nuevo);
                     modificarViaje($viaje);
                 }
                 break;
@@ -475,7 +481,7 @@ function opcionesModificarViaje($viaje)
                 $nuevo = trim(fgets(STDIN));
                 $nuevaEmpresa = new Empresa();
                 if ($nuevaEmpresa->buscar($nuevo)) {
-                    $viaje->cargar($viaje->getVdestino(), $viaje->getVcantmaxpasajeros(), $nuevaEmpresa, $viaje->getRnumeroempleado(), $viaje->getVimporte(), $viaje->getTipoasiento(), $viaje->getIdayvuelta());
+                    $viaje->setIdempresa($nuevaEmpresa);
                     modificarViaje($viaje);
                 } else {
                     echo "No se encontro una empresa con el ID buscado.\n";
@@ -486,7 +492,7 @@ function opcionesModificarViaje($viaje)
                 $nuevo = trim(fgets(STDIN));
                 $nuevoResponsable = new Responsable();
                 if ($nuevoResponsable->buscar($nuevo)) {
-                    $viaje->cargar($viaje->getVdestino(), $viaje->getVcantmaxpasajeros(), $viaje->getObjempresa(), $nuevoResponsable, $viaje->getVimporte(), $viaje->getTipoasiento(), $viaje->getIdayvuelta());
+                    $viaje->setRnumeroempleado($nuevoResponsable);
                     modificarViaje($viaje);
                 } else {
                     echo "No se encontro un responsbale con el Num. Empleado buscado.\n";
@@ -495,19 +501,19 @@ function opcionesModificarViaje($viaje)
             case 5:
                 echo "Ingrese el nuevo importe: ";
                 $nuevo = trim(fgets(STDIN));
-                $viaje->cargar($viaje->getVdestino(), $viaje->getVcantmaxpasajeros(), $viaje->getObjempresa(), $viaje->getRnumeroempleado(), $nuevo, $viaje->getTipoasiento(), $viaje->getIdayvuelta());
+                $viaje->setVimporte($nuevo);
                 modificarViaje($viaje);
                 break;
             case 6:
                 echo "Ingrese el nuevo tipo de asiento: ";
                 $nuevo = trim(fgets(STDIN));
-                $viaje->cargar($viaje->getVdestino(), $viaje->getVcantmaxpasajeros(), $viaje->getObjempresa(), $viaje->getRnumeroempleado(), $viaje->getVimporte(), $nuevo, $viaje->getIdayvuelta());
+                $viaje->setTipoAsiento($nuevo);
                 modificarViaje($viaje);
                 break;
             case 7:
                 echo "Ingrese si tiene ida y vuelta (si/no): ";
                 $nuevo = trim(fgets(STDIN));
-                $viaje->cargar($viaje->getVdestino(), $viaje->getVcantmaxpasajeros(), $viaje->getObjempresa(), $viaje->getRnumeroempleado(), $viaje->getVimporte(), $viaje->getTipoasiento(), $nuevo);
+                $viaje->setIdayvuelta($nuevo);
                 modificarViaje($viaje);
                 break;
             case 0:
@@ -670,19 +676,19 @@ function opcionesModificarPasajero($documento)
             case 1:
                 echo "Ingrese nuevo nombre: ";
                 $nuevoNombre = trim(fgets(STDIN));
-                $pasajero->cargar($pasajero->getRdocumento(), $nuevoNombre, $pasajero->getPapellido(), $pasajero->getPtelefono(), $pasajero->getIdViaje());
+                $pasajero->setPnombre($nuevoNombre);
                 modificarPasajero($pasajero);
                 break;
             case 2:
                 echo "Ingrese nuevo apellido: ";
                 $nuevoApellido = trim(fgets(STDIN));
-                $pasajero->cargar($pasajero->getRdocumento(), $pasajero->getPnombre(), $nuevoApellido, $pasajero->getPtelefono(), $pasajero->getIdViaje());
+                $pasajero->setPapellido($nuevoApellido);
                 modificarPasajero($pasajero);
                 break;
             case 3:
                 echo "Ingrese nuevo telefono: ";
                 $nuevoTelefono = trim(fgets(STDIN));
-                $pasajero->cargar($pasajero->getRdocumento(), $pasajero->getPnombre(), $pasajero->getPapellido(), $nuevoTelefono, $pasajero->getIdViaje());
+                $pasajero->setPtelefono($nuevoTelefono);
                 modificarPasajero($pasajero);
                 break;
             case 4:
@@ -691,7 +697,7 @@ function opcionesModificarPasajero($documento)
                 $viaje = new Viaje();
                 if ($viaje->buscar($nuevoID)) {
                     if (hayLugar($nuevoID)) {
-                        $pasajero->cargar($pasajero->getRdocumento(), $pasajero->getPnombre(), $pasajero->getPapellido(), $pasajero->getPtelefono(), $viaje);
+                        $pasajero->setIdviaje($viaje);
                         modificarPasajero($pasajero);
                     } else {
                         echo "No hay lugar disponible en el viaje solicitado.\n";
@@ -835,19 +841,19 @@ function opcionesModificarResponsable($numEmpleado)
             case 1:
                 echo "Nuevo numero licencia: ";
                 $nuevo = trim(fgets(STDIN));
-                $resposable->cargar($nuevo, $resposable->getRnombre(), $resposable->getRapellido());
+                $resposable->setRnumerolicencia($nuevo);
                 modificarResponsable($resposable);
                 break;
             case 2:
                 echo "Nuevo nombre: ";
                 $nuevo = trim(fgets(STDIN));
-                $resposable->cargar($resposable->getRnumerolicencia(), $nuevo, $resposable->getRapellido());
+                $resposable->setRnombre($nuevo);
                 modificarResponsable($resposable);
                 break;
             case 3:
                 echo "Nuevo apellido: ";
                 $nuevo = trim(fgets(STDIN));
-                $resposable->cargar($resposable->getRnumerolicencia(), $resposable->getRnombre(), $nuevo);
+                $resposable->setRapellido($nuevo);
                 modificarResponsable($resposable);
                 break;
             case 0:
