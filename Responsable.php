@@ -24,17 +24,6 @@ class Responsable{
         $this->rapellido = $rapellido;
     }
 
-    //Para la funcion listar
-    public function cargar2($rnumeroEmpleado, $rnumerolicencia, $rnombre, $rapellido)
-    {
-        $this->rnumeroEmpleado = $rnumeroEmpleado;
-        $this->rnumerolicencia = $rnumerolicencia;
-        $this->rnombre = $rnombre;
-        $this->rapellido = $rapellido;
-    }
-
-    
-
     public function getRnumeroEmpleado(){
         return $this->rnumeroEmpleado;
     }

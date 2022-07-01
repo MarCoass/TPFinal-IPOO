@@ -36,19 +36,6 @@ class Viaje
         $this->setIdayvuelta($idayvuelta);
     }
 
-    //Para la funcion listar
-    public function cargar2($idviaje, $vdestino, $vcantmaxpasajeros, $objempresa, $rnumeroempleado, $vimporte, $tipoAsiento, $idayvuelta)
-    {
-        $this->setIdviaje($idviaje);
-        $this->setVdestino($vdestino);
-        $this->setVcantmaxpasajeros($vcantmaxpasajeros);
-        $this->setObjempresa($objempresa);
-        $this->setRnumeroempleado($rnumeroempleado);
-        $this->setVimporte($vimporte);
-        $this->setTipoAsiento($tipoAsiento);
-        $this->setIdayvuelta($idayvuelta);
-    }
-
     //metodos de acceso
     public function getIdviaje()
     {

@@ -6,14 +6,12 @@ Clase EMPRESA:
     Opciones para tablas vacias: okey
 
 Clase VIAJE: 
-Agregado que no deje insertar viaje si no hay responsables/empresas disponibles
-Agregar que no se repita destino
     INSERTAR: okey
     MODIFICAR: 
         Destino: okey
         CantMax: okey
             Cambiar a cantidad menor de los que hay: okey
-        Empresa:
+        Empresa: okey
         Responsable:
         Importe: okey
         TipoAsiento: okey

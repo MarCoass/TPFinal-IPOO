@@ -21,15 +21,6 @@ class Empresa
         $this->setEdireccion($edireccion);
     }
 
-    //Para la funcion listar
-    public function cargar2($idEmpresa, $enombre, $edireccion)
-    {
-        $this->setIdEmpresa(($idEmpresa));
-        $this->setEnombre($enombre);
-        $this->setEdireccion($edireccion);
-    }
-
-
     public function getIdEmpresa()
     {
         return $this->idEmpresa;
