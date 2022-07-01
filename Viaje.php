@@ -221,7 +221,9 @@ class Viaje
         $idEmpresa = $empresa->getIdEmpresa();
         $responsable = $this->getRnumeroempleado();
         $numResponsable = $responsable->getRnumeroempleado();
-        $consulta = "INSERT INTO viaje(vdestino, vcantmaxpasajeros, idempresa, rnumeroempleado, vimporte, tipoAsiento, idayvuelta) VALUES ('{$this->getVdestino()}', {$this->getVcantmaxpasajeros()}, {$idEmpresa}, {$numResponsable}, {$this->getVimporte()}, '{$this->getTipoasiento()}', '{$this->getIdayvuelta()}')";
+        $consulta = "INSERT INTO viaje(vdestino, vcantmaxpasajeros, idempresa, rnumeroempleado, vimporte, " .
+        "tipoAsiento, idayvuelta) VALUES ('{$this->getVdestino()}', {$this->getVcantmaxpasajeros()}, 
+        {$idEmpresa}, {$numResponsable}, {$this->getVimporte()}, '{$this->getTipoasiento()}', '{$this->getIdayvuelta()}')";
         if ($base->Iniciar()) {
             if ($base->Ejecutar($consulta)) {
                 $rta = true;
