@@ -12,6 +12,7 @@ Agregar que no se repita destino
     MODIFICAR: 
         Destino: okey
         CantMax: okey
+            Cambiar a cantidad menor de los que hay: 
         Empresa:
         Responsable:
         Importe: okey
@@ -34,8 +35,12 @@ Agregado que no deje insertar si no hay viaje disponible
     ELIMINAR: okey
     LISTAR: okey
 
-Clase RESPONSABLE: Agregar validacion de que no deje borrar un Responsable que este a cargo de un viaje.
+Clase RESPONSABLE: 
+Agregado validacion de que no deje borrar un Responsable que este a cargo de un viaje.
     INSERTAR: okey
     MODIFICAR: okey
     LISTAR: okey
     ELIMINAR: okey
+
+
+PHP Notice:  Undefined variable: rta in C:\Users\marti\OneDrive\Escritorio\Facultad\IPOO\TPFinal\Viaje.php on line 185

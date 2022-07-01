@@ -157,6 +157,7 @@ class Viaje
     public function Buscar($id)
     {
         $base = new BaseDatos();
+        $rta = false;
         $consulta = "SELECT * FROM Viaje WHERE idviaje=" . $id;
         if ($base->Iniciar()) {
             if ($base->Ejecutar($consulta)) {

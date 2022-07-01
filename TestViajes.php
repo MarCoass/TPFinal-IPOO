@@ -501,7 +501,7 @@ function insertarPasajero()
             $pasajerosEnViaje = listadoPasajerosEnViaje($idViaje);
             $cantMax = $viaje->getVcantmaxpasajeros();
             if (sizeof($pasajerosEnViaje) >= $cantMax) {
-                echo "El viaje esta lleno.\n";
+                echo "El viaje esta lleno. Elija otro.\n";
                 $existe = false;
             }
         }
@@ -556,7 +556,12 @@ function opcionesPasajeros()
         $opcion = trim(fgets(STDIN));
         switch ($opcion) {
             case 1:
-                insertarPasajero();
+                if (existenViajes()) {
+                    insertarPasajero();
+                } else {
+                    echo "Opcion no disponible. Inserte un viaje para continuar.\n";
+                }
+
                 break;
             case 2:
                 if (existenPasajeros()) {
@@ -752,12 +757,12 @@ function opcionesResponsable()
 
                 break;
             case 4:
-                $resposables = $resposable->listar();
-                $texto = '';
-                foreach ($resposables as $itemResponsables) {
-                    $texto = $texto . $itemResponsables->__toString() . "\n";
+                if (existenResponsables()) {
+                    $responsables = $resposable->listar();
+                    listarArray($responsables);
+                } else {
+                    echo "No hay responsables cargados.\n";
                 }
-                echo $texto;
                 break;
             case 0:
                 break;
